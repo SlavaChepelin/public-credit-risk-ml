@@ -1,0 +1,35 @@
+[project]
+name = "credit-risk-ml"
+version = "0.1.0"
+description = "Tabular credit scoring pet project: boosting + PyTorch + banking metrics"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.1",
+  "scikit-learn>=1.6",
+  "torch>=2.1",
+  "matplotlib>=3.8",
+  "fastapi>=0.110",
+  "uvicorn>=0.27",
+  "pydantic>=2.0",
+  "joblib>=1.3",
+]
+
+[project.optional-dependencies]
+catboost = ["catboost>=1.2"]
+mlflow = ["mlflow>=2.10"]
+duckdb = ["duckdb>=0.10"]
+dev = ["pytest>=8.0", "httpx>=0.27"]
+all = ["credit-risk-ml[catboost,mlflow,duckdb,dev]"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]

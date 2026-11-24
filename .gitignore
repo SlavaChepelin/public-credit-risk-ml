@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+artifacts/
+data/*.parquet
+data/*.csv
+data/home_credit/
+# PNG отчёта трекаем; игнор только временных кэшей matplotlib при необходимости
+catboost_info/
+# keep metrics.json tracked when present; ignore only caches
+*.egg-info/
+dist/
+build/
+.ipynb_checkpoints/

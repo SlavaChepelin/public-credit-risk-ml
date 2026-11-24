@@ -1,0 +1,334 @@
+{
+  "dataset": "home_credit",
+  "n_samples": 40000,
+  "default_rate": 0.080775,
+  "boosting_backend": "catboost",
+  "split": {
+    "train": 28000,
+    "valid": 6000,
+    "test": 6000,
+    "strategy": "time_based_proxy",
+    "time_col": "DAYS_ID_PUBLISH"
+  },
+  "models": {
+    "logistic": {
+      "valid": {
+        "roc_auc": 0.7419909456361009,
+        "gini": 0.4839818912722018,
+        "ks": 0.3702001922199058,
+        "pr_auc": 0.2434830454730149,
+        "brier": 0.2390375434724944,
+        "ece": 0.3674444900811844
+      },
+      "test": {
+        "roc_auc": 0.7365630910376488,
+        "gini": 0.47312618207529766,
+        "ks": 0.3562192715835511,
+        "pr_auc": 0.2425638900585912,
+        "brier": 0.22865668097972164,
+        "ece": 0.35214618072925163
+      }
+    },
+    "boosting": {
+      "valid": {
+        "roc_auc": 0.7432801065402888,
+        "gini": 0.4865602130805775,
+        "ks": 0.3753919504337953,
+        "pr_auc": 0.247787883741807,
+        "brier": 0.1771729586532938,
+        "ece": 0.2767178319307993
+      },
+      "test": {
+        "roc_auc": 0.7395645688197785,
+        "gini": 0.479129137639557,
+        "ks": 0.3700028276396871,
+        "pr_auc": 0.26505404058671334,
+        "brier": 0.17858150280314786,
+        "ece": 0.2753413821638188
+      }
+    },
+    "torch_nn": {
+      "valid": {
+        "roc_auc": 0.7373915836813363,
+        "gini": 0.47478316736267256,
+        "ks": 0.355258931137674,
+        "pr_auc": 0.23640805611798535,
+        "brier": 0.24363456666469574,
+        "ece": 0.3683630445882057
+      },
+      "test": {
+        "roc_auc": 0.73556819250495,
+        "gini": 0.47113638500989996,
+        "ks": 0.35321146090178596,
+        "pr_auc": 0.2358345690411383,
+        "brier": 0.2331189513206482,
+        "ece": 0.35375943815042654
+      }
+    }
+  },
+  "best_model": "boosting",
+  "oof": {
+    "n_folds": 3,
+    "model": "boosting",
+    "folds": [
+      {
+        "roc_auc": 0.7172065603844573,
+        "gini": 0.4344131207689146,
+        "ks": 0.3264504942852247,
+        "pr_auc": 0.1925550719040753,
+        "brier": 0.11264655954475891,
+        "ece": 0.16622157182476388
+      },
+      {
+        "roc_auc": 0.7505139740183335,
+        "gini": 0.5010279480366671,
+        "ks": 0.3923378703730348,
+        "pr_auc": 0.2423203459589898,
+        "brier": 0.17223836944397514,
+        "ece": 0.2768329459505071
+      },
+      {
+        "roc_auc": 0.7421347282018562,
+        "gini": 0.48426945640371244,
+        "ks": 0.36828365443452415,
+        "pr_auc": 0.26517855587778333,
+        "brier": 0.18210981666360354,
+        "ece": 0.2840818978171411
+      }
+    ],
+    "summary": {
+      "roc_auc": {
+        "mean": 0.7366184208682157,
+        "std": 0.014146099243110884
+      },
+      "gini": {
+        "mean": 0.4732368417364314,
+        "std": 0.02829219848622177
+      },
+      "ks": {
+        "mean": 0.3623573396975946,
+        "std": 0.027222876246580974
+      },
+      "pr_auc": {
+        "mean": 0.23335132458028282,
+        "std": 0.030319137130297026
+      },
+      "brier": {
+        "mean": 0.15566491521744588,
+        "std": 0.030684366933221064
+      },
+      "ece": {
+        "mean": 0.24237880519747068,
+        "std": 0.05393255029528328
+      }
+    }
+  },
+  "postprocess": {
+    "calibration": {
+      "method": "sigmoid",
+      "fit_split": "valid",
+      "valid_fit_metrics": {
+        "roc_auc": 0.7432801065402888,
+        "gini": 0.4865602130805775,
+        "ks": 0.3753919504337953,
+        "pr_auc": 0.247787883741807,
+        "brier": 0.07850710844610294,
+        "ece": 0.0032674156055277565
+      },
+      "test": {
+        "roc_auc": 0.7395645688197785,
+        "gini": 0.479129137639557,
+        "ks": 0.3700028276396871,
+        "pr_auc": 0.26505404058671334,
+        "brier": 0.08057377384278042,
+        "ece": 0.005576046565126773
+      }
+    },
+    "threshold": {
+      "strategy": "max_ks",
+      "threshold": 0.09001999002575374,
+      "target_recall": null,
+      "precision": 0.1835032437442076,
+      "recall": 0.6996466431095406,
+      "fpr": 0.3242546926757453,
+      "f1": 0.2907488986784141,
+      "approval_rate": 0.6403333333333333,
+      "predicted_default_rate": 0.3596666666666667,
+      "tp": 396.0,
+      "fp": 1762.0,
+      "tn": 3672.0,
+      "fn": 170.0
+    },
+    "operating_point_test": {
+      "threshold": 0.09001999002575374,
+      "precision": 0.18509949097639983,
+      "recall": 0.6861063464837049,
+      "fpr": 0.3250876869115747,
+      "f1": 0.2915451895043732,
+      "approval_rate": 0.6398333333333334,
+      "predicted_default_rate": 0.3601666666666667,
+      "tp": 400.0,
+      "fp": 1761.0,
+      "tn": 3656.0,
+      "fn": 183.0
+    },
+    "deciles_test": [
+      {
+        "decile": 1,
+        "count": 600,
+        "defaults": 180.0,
+        "default_rate": 0.3,
+        "lift": 3.0874785591766725,
+        "capture": 0.30874785591766724
+      },
+      {
+        "decile": 2,
+        "count": 600,
+        "defaults": 101.0,
+        "default_rate": 0.16833333333333333,
+        "lift": 1.732418524871355,
+        "capture": 0.48198970840480276
+      },
+      {
+        "decile": 3,
+        "count": 600,
+        "defaults": 86.0,
+        "default_rate": 0.14333333333333334,
+        "lift": 1.4751286449399659,
+        "capture": 0.6295025728987993
+      },
+      {
+        "decile": 4,
+        "count": 600,
+        "defaults": 48.0,
+        "default_rate": 0.08,
+        "lift": 0.823327615780446,
+        "capture": 0.7118353344768439
+      },
+      {
+        "decile": 5,
+        "count": 600,
+        "defaults": 55.0,
+        "default_rate": 0.09166666666666666,
+        "lift": 0.9433962264150942,
+        "capture": 0.8061749571183533
+      },
+      {
+        "decile": 6,
+        "count": 600,
+        "defaults": 30.0,
+        "default_rate": 0.05,
+        "lift": 0.5145797598627788,
+        "capture": 0.8576329331046312
+      },
+      {
+        "decile": 7,
+        "count": 600,
+        "defaults": 35.0,
+        "default_rate": 0.058333333333333334,
+        "lift": 0.6003430531732419,
+        "capture": 0.9176672384219554
+      },
+      {
+        "decile": 8,
+        "count": 600,
+        "defaults": 13.0,
+        "default_rate": 0.021666666666666667,
+        "lift": 0.22298456260720412,
+        "capture": 0.9399656946826758
+      },
+      {
+        "decile": 9,
+        "count": 600,
+        "defaults": 19.0,
+        "default_rate": 0.03166666666666667,
+        "lift": 0.3259005145797599,
+        "capture": 0.9725557461406518
+      },
+      {
+        "decile": 10,
+        "count": 600,
+        "defaults": 16.0,
+        "default_rate": 0.02666666666666667,
+        "lift": 0.274442538593482,
+        "capture": 1.0
+      }
+    ],
+    "stability": {
+      "psi_train_test": {
+        "psi": 0.036611071551892624,
+        "status": "stable",
+        "n_bins": 10.0
+      }
+    },
+    "feature_importance_top15": [
+      {
+        "feature": "num__ext_source_mean",
+        "importance": 9.754943338361477
+      },
+      {
+        "feature": "num__EXT_SOURCE_3",
+        "importance": 4.442332724357765
+      },
+      {
+        "feature": "num__age_years",
+        "importance": 3.943056793620269
+      },
+      {
+        "feature": "num__employment_years",
+        "importance": 3.39589481045709
+      },
+      {
+        "feature": "num__bureau_days_credit_max",
+        "importance": 3.3099128007163827
+      },
+      {
+        "feature": "num__EXT_SOURCE_2",
+        "importance": 3.13915187455989
+      },
+      {
+        "feature": "num__prev_amt_credit_mean",
+        "importance": 3.0896939205407747
+      },
+      {
+        "feature": "num__prev_days_decision_mean",
+        "importance": 2.9692725024758677
+      },
+      {
+        "feature": "num__annuity_income_ratio",
+        "importance": 2.6342438493393536
+      },
+      {
+        "feature": "num__AMT_CREDIT",
+        "importance": 2.5977264869809087
+      },
+      {
+        "feature": "num__bureau_amt_debt_mean",
+        "importance": 2.451588296158073
+      },
+      {
+        "feature": "num__prev_amt_annuity_mean",
+        "importance": 2.302765688557865
+      },
+      {
+        "feature": "num__credit_income_ratio",
+        "importance": 2.268227686709049
+      },
+      {
+        "feature": "num__bureau_days_credit_mean",
+        "importance": 2.220574134088317
+      },
+      {
+        "feature": "num__EXT_SOURCE_1",
+        "importance": 2.1988008656998423
+      }
+    ],
+    "figures": {
+      "reliability": "/home/vchepelin/Repositories/public-credit-risk-ml/results/figures/reliability.png",
+      "importance": "/home/vchepelin/Repositories/public-credit-risk-ml/results/figures/importance_top15.png",
+      "decile_lift": "/home/vchepelin/Repositories/public-credit-risk-ml/results/figures/decile_lift.png",
+      "score_distribution": "/home/vchepelin/Repositories/public-credit-risk-ml/results/figures/score_distribution.png"
+    }
+  },
+  "selection_rule": "max_valid_gini"
+}
